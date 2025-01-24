@@ -25,6 +25,7 @@ class PowerSupply:
                 max_power = int(psu.get("Max Power Capacity").split()[0])
             except ValueError:
                 max_power = None
+            max_draw = max_power if max_power != 0 else None
             desc = "{} - {}".format(
                 psu.get("Manufacturer", "No Manufacturer").strip(),
                 psu.get("Name", "No name").strip(),
@@ -41,7 +42,7 @@ class PowerSupply:
                     "name": sn,
                     "description": desc,
                     "allocated_draw": None,
-                    "maximum_draw": max_power,
+                    "maximum_draw": max_draw,
                     "device": self.device_id,
                 }
             )
