@@ -188,7 +188,6 @@ class Network(object):
             return self.dcim_choices["interface:type"]["1000BASE-T (1GE)"]
 
         return self.dcim_choices["interface:type"]["Other"]
-    def get_or_create_mac_address(self, mac_address):
 
     def get_or_create_vlan(self, vlan_id):
         # FIXME: we may need to specify the datacenter
