@@ -90,6 +90,29 @@ class Rack(LocationBase):
         regex = config.rack_location.regex
         super().__init__(driver, driver_value, driver_file, regex)
 
+class Position(LocationBase):
+    def __init__(self):
+        driver = config.rack_position.driver.split(":")[0] if config.rack_location.driver else None
+        driver_value = (
+            ":".join(config.rack_position.driver.split(":")[1:])
+            if config.rack_position.driver
+            else None
+        )
+        driver_file = config.rack_position.driver_file
+        regex = config.rack_position.regex
+        super().__init__(driver, driver_value, driver_file, regex)
+
+class Face(LocationBase):
+    def __init__(self):
+        driver = config.rack_face.driver.split(":")[0] if config.rack_location.driver else None
+        driver_value = (
+            ":".join(config.rack_face.driver.split(":")[1:])
+            if config.rack_face.driver
+            else None
+        )
+        driver_file = config.rack_face.driver_file
+        regex = config.rack_face.regex
+        super().__init__(driver, driver_value, driver_file, regex)
 
 class Slot(LocationBase):
     def __init__(self):
