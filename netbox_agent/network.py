@@ -188,6 +188,7 @@ class Network(object):
             return self.dcim_choices["interface:type"]["1000BASE-T (1GE)"]
 
         return self.dcim_choices["interface:type"]["Other"]
+    def get_or_create_mac_address(self, mac_address):
 
     def get_or_create_vlan(self, vlan_id):
         # FIXME: we may need to specify the datacenter
@@ -288,13 +289,16 @@ class Network(object):
                 "mgmt_only": mgmt,
             }
         )
-        if nic["mac"]:
-            params["mac_address"] = nic["mac"]
 
         if nic["mtu"]:
             params["mtu"] = nic["mtu"]
 
         interface = self.nb_net.interfaces.create(**params)
+        if nic["mac"]:
+            mac = nb.dcim.mac_addresses.create(mac_address=nic["mac"], assigned_object_id=interface.id,
+                                         assigned_object_type="dcim.interface")
+            interface.primary_mac_address=mac
+            interface.save()
 
         if nic["vlan"]:
             nb_vlan = self.get_or_create_vlan(nic["vlan"])
