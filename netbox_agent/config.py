@@ -1,5 +1,6 @@
 import logging
 import sys
+from email.policy import default
 
 import jsonargparse
 import pynetbox
@@ -118,6 +119,7 @@ def get_config():
         default=r"^(127\.0\.0\..*|fe80.*|::1.*)",
         help="Regex to ignore IPs",
     )
+    p.add_argument("--network.vrf", default="Global", help="VRF to use")
     p.add_argument("--network.ipmi", default=True, help="Enable gathering IPMI information")
     p.add_argument("--network.lldp", help="Enable auto-cabling feature through LLDP infos")
     p.add_argument(

@@ -339,8 +339,10 @@ class Network(object):
         * If IP exists and isn't assigned, take it
         * If IP exists and interface is wrong, change interface
         """
+        vrf_id = "null" if config.network.vrf == "Global" else nb.ipam.vrfs.get(name=config.network.vrf).id
         netbox_ips = nb.ipam.ip_addresses.filter(
             address=ip,
+            vrf_id=vrf_id
         )
         if not netbox_ips:
             logging.info("Create new IP {ip} on {interface}".format(ip=ip, interface=interface))
