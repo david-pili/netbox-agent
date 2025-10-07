@@ -509,10 +509,6 @@ class Network(object):
                     )
                     nic_update += ret
 
-            if nic["ip"]:
-                # sync local IPs
-                for ip in nic["ip"]:
-                    self.create_or_update_netbox_ip_on_interface(ip, interface)
             if nic_update > 0:
                 interface.save()
 
