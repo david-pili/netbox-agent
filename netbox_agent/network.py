@@ -146,12 +146,7 @@ class Network(object):
         return self.nics
 
     def get_netbox_network_card(self, nic):
-        if nic["mac"] is None:
-            interface = self.nb_net.interfaces.get(name=nic["name"], **self.custom_arg_id)
-        else:
-            interface = self.nb_net.interfaces.get(
-                mac_address=nic["mac"], name=nic["name"], **self.custom_arg_id
-            )
+        interface = self.nb_net.interfaces.get(name=nic["name"], **self.custom_arg_id)
         return interface
 
     def get_netbox_network_cards(self):
